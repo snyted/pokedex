@@ -26,14 +26,59 @@
         <!-- Pokemons aqui -->
       </ol>
 
+      <section class="modal-container">
+        <!-- Modal Here -->
+         <div class="options">
+           <button class="back-to-pokedex">⇤</button>
+           <span class="favorite">❤</span>
+         </div>
+
+          <div class="info-header">
+            <div class="pokemon-name-and-type">
+              <span class="pokemon-name">Bulbasaur</span>
+              <ol class="types-modal">
+                <li class="type-modal">grass</li>
+                <li class="type-modal">fire</li></li>
+                </ol>
+            </div>
+              <p class="number-modal">#001</p>
+            </div>
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg" alt="Bulbasaur">
+           
+            <div class="pokemon-infos">
+              <ol>
+                <li>Description: A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.</li>
+                <li>Height: 7'00</li><li>Weight: 69.8kg</li>
+                <li>Abilities: Overgrow</li>
+                <li>Base Experience: 64</li>
+                <li>Species: Seed Pokémon</li>
+                <li>Generation: 1</li>
+                <li>Evolution Line: Ivysaur</li>
+                <li>Evolution Line: Venusaur</li>
+                <li>Evolution Line: Mega Venusaur</li>
+              </ol>
+            </div>
+      </section>
+
+<!-- Botão para carregar mais pokemons -->
       <div class="pagination">
         <button id="load-more-button" type="button">Load More</button>
       </div>
     </section>
 
+    
+    <!-- <section class="modal-container">
+      <div class="modal">
+        <button type="button" id="modal-close-button">x</button>
+        <div class="modal-content">
+          <h2 class="modal-title">Loading...</h2>
+          <p class="modal-text">Loading...</p>
+        </div>
+      </div>
+    </section> -->
     <!-- Script Principal -->
     <script src="assets/js/pokemon-model.js"></script>
     <script src="assets/js/poke-api.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script defer src="assets/js/main.js"></script>
   </body>
 </html>

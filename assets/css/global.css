@@ -9,6 +9,22 @@ body {
   background-color: #f3f5fc;
 }
 
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+li, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
 
 
 

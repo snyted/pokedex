@@ -5,24 +5,19 @@ const limit = 5;
 let offset = 0;
 
 async function loadPokemonItens(offset, limit) {
-  try {
-    const pokemons = await pokeApi.getPokemon(offset, limit);
-    let addToHtml = "";
-    pokemons.map((pokemon) => {
-      addToHtml += convertPokemonToLi(pokemon);
-    });
-    olPokemons.innerHTML += addToHtml;
+  const pokemons = await pokeApi.getPokemon(offset, limit);
+  let addToHtml = "";
+  pokemons.map((pokemon) => {
+    addToHtml += convertPokemonToLi(pokemon);
+  });
+  olPokemons.innerHTML += addToHtml;
 
-    document.querySelectorAll(".pokemon").forEach((pokemonItem) => {
-      pokemonItem.addEventListener("click", (event) => {
-        console.log(event);
-        const pokemonData = JSON.parse(event.currentTarget.dataset.pokemon);
-        openModal(pokemonData);
-      });
+  document.querySelectorAll(".pokemon").forEach((pokemonItem) => {
+    pokemonItem.addEventListener("click", (event) => {
+      const pokemonData = JSON.parse(event.currentTarget.dataset.pokemon);
+      openModal(pokemonData);
     });
-  } catch (error) {
-    console.error("Erro ao carregar os Pokémons:", error);
-  }
+  });
 }
 
 function convertPokemonToLi(pokemon) {
@@ -55,9 +50,13 @@ function openModal(pokemon) {
       <div class="pokemon-name-and-type">
         <span class="pokemon-name">${pokemon.name}</span>
         <ol class="types-modal">
-          ${pokemon.types
-            ? pokemon.types.map((type) => `<li class="${pokemon.type}">${type}</li>`).join("")
-            : ""}
+          ${
+            pokemon.types
+              ? pokemon.types
+                  .map((type) => `<li class="${pokemon.type}">${type}</li>`)
+                  .join("")
+              : ""
+          }
         </ol>
       </div>
       <p class="number-modal">#${pokemon.number}</p>
@@ -68,7 +67,9 @@ function openModal(pokemon) {
         <li>Description: ${pokemon.description || "N/A"}</li>
         <li>Height: ${pokemon.height || "N/A"}</li>
         <li>Weight: ${pokemon.weight || "N/A"}</li>
-        <li>Abilities: ${pokemon.abilities ? pokemon.abilities.join(", ") : "N/A"}</li>
+        <li>Abilities: ${
+          pokemon.abilities ? pokemon.abilities.join(", ") : "N/A"
+        }</li>
         <li>Base Experience: ${pokemon.baseExperience || "N/A"}</li>
       </ol>
     </div>

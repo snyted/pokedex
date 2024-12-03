@@ -20,7 +20,6 @@ pokeApi.getPokemonDetail = (results) => {
 
 function convertPokeApiDetailToPokemon(pokeDetail) {
   const pokemon = new Pokemon();
-  console.log(pokeDetail)
   pokemon.number = pokeDetail.id;
   pokemon.name = pokeDetail.name;
   pokemon.photo = pokeDetail.sprites.other.dream_world.front_default;
@@ -36,6 +35,5 @@ function convertPokeApiDetailToPokemon(pokeDetail) {
   }));
 
   pokemon.name = pokeDetail.name[0].toUpperCase() + pokeDetail.name.slice(1);
-  console.log(pokemon.stats)
   return pokemon;
 }

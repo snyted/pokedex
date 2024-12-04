@@ -12,12 +12,7 @@ async function loadPokemonItens(offset, limit) {
   });
   olPokemons.innerHTML += addToHtml;
 
-  document.querySelectorAll(".pokemon").forEach((pokemonItem) => {
-    pokemonItem.addEventListener("click", (event) => {
-      const pokemonData = JSON.parse(event.currentTarget.dataset.pokemon);
-      openModal(pokemonData);
-    });
-  });
+  gettingCurrentPokemon();
 }
 
 function convertPokemonToLi(pokemon) {
@@ -37,14 +32,33 @@ function convertPokemonToLi(pokemon) {
   `;
 }
 
+function gettingCurrentPokemon() {
+  document.querySelectorAll(".pokemon").forEach((pokemonItem) => {
+    pokemonItem.addEventListener("click", (event) => {
+      const pokemonData = JSON.parse(event.currentTarget.dataset.pokemon);
+      openModal(pokemonData);
+    });
+  });
+}
+
 function openModal(pokemon) {
+  modalContainer.style.transition = "opacity 0.3s ease-in-out";
+
   modalContainer.style.display = "flex";
-  modalContainer.className = "modal-container"; // Limpa as classes anteriores
+  modalContainer.style.opacity = "0";
+
+  requestAnimationFrame(() => {
+    modalContainer.style.opacity = "1";
+  });
+
+  modalContainer.className = "modal-container";
   modalContainer.classList.add(pokemon.type);
   modalContainer.innerHTML = `
     <div class="options">
       <button class="back-to-pokedex">⇤</button>
-      <span class="favorite">❤</span>
+      <span class="favorite" onclick="toggleFavorite(${
+        pokemon.number
+      })">❤</span>
     </div>
     <div class="info-header">
       <div class="pokemon-name-and-type">
@@ -64,16 +78,34 @@ function openModal(pokemon) {
     <img src="${pokemon.photo}" alt="${pokemon.name}">
     <div class="pokemon-infos">
       <ol>
-        <li>Description: ${pokemon.description || "N/A"}</li>
-        <li>Height: ${pokemon.height || "N/A"}</li>
-        <li>Weight: ${pokemon.weight || "N/A"}</li>
-        <li>Abilities: ${
+        <li><span class="title">Description</span> <div class="information">${
+          pokemon.description || "N/A"
+        }</div></li>
+        <li><span class="title">Height</span> <div class="information">${
+          pokemon.height || "N/A"
+        }</div></li>
+        <li><span class="title">Weight</span> <div class="information">${
+          pokemon.weight || "N/A"
+        }</div></li>
+        <li><span class="title">Abilities</span> <div class="information">${
           pokemon.abilities ? pokemon.abilities.join(", ") : "N/A"
-        }</li>
-        <li>Base Experience: ${pokemon.baseExperience || "N/A"}</li>
+        } </div></li>
+        <li><span class="title">Base Experience</span> <div class="information">${
+          pokemon.baseExperience || "N/A"
+        }</div></li>
       </ol>
     </div>
   `;
+}
+
+function toggleFavorite(number) {
+  const favoritePokemons = document.querySelector(".favorite");
+
+  if (favoritePokemons.style.webkitTextFillColor === "transparent") {
+    favoritePokemons.style.webkitTextFillColor = "red";
+  } else {
+    favoritePokemons.style.webkitTextFillColor = "transparent";
+  }
 }
 
 // Evento para fechar o modal

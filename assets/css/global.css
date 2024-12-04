@@ -26,6 +26,11 @@ a {
 }
 
 
+@font-face {
+  font-family: "Pokemon";
+  src: url('../fonts/Pokemon.ttf');
+}
+
 
 
 

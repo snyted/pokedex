@@ -22,8 +22,24 @@
   padding: 2rem 1rem;
   border-radius: 1rem;
   color: #fff;
+  z-index: 1;
+  position: relative;
 }
 
+.pokemon::after {
+  content: "";
+  position: absolute;
+  bottom: 15px;
+  right: -5px;
+  width: 100px;
+  height: 100px;
+  background-image: url("../img/ball-game-poke-sport-sports-svgrepo-com.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.3; /* Define a transparência */
+  filter: brightness(1.1);
+  z-index: -1;
+}
 .pokemon .number {
   color: #000;
   opacity: 0.3;
@@ -33,6 +49,8 @@
 
 .pokemon .name {
   margin-bottom: 0.25rem;
+  text-transform: capitalize;
+  font-weight: bold;
 }
 
 .pokemon .detail {
@@ -60,7 +78,7 @@
 
 .pokemon .detail img {
   max-width: 100%;
-  height: 70px;
+  height: 80px;
   align-self: flex-end;
 }
 
@@ -82,22 +100,22 @@
 }
 /* Pokemon colors */
 .normal {
-  background-color: #55553e;
+  background-color: #a1a177;
 }
 
 .fire {
-  background-color: #f08030;
+  background-color: #fc6c6c;
 }
 
 .water {
-  background-color: #6890f0;
+  background-color: #6898fc;
 }
 .grass {
-  background-color: #78c850;
+  background-color: #49d0b0;
 }
 
 .electric {
-  background-color: #f8d030;
+  background-color: #ffce4b;
 }
 
 .ice {
@@ -160,8 +178,41 @@
   top: 0;
   left: 0;
   width: 100%;
+  max-width: 500px;
   height: 100%;
   color: #fff;
+  z-index: 100;
+}
+
+.modal-container::after {
+  content: "";
+  position: absolute;
+  top: 30%;
+  left: 55%;
+  width: 50%;
+  height: 50%;
+  background-image: url("../img/ball-game-poke-sport-sports-svgrepo-com.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.3; /* Define a transparência */
+  z-index: -1;
+}
+
+.modal-container::before {
+  content: "";
+  position: absolute;
+  top: -10px; /* Posição no canto superior */
+  left: -10px; /* Posição no canto esquerdo */
+  width: 150px; /* Tamanho do quadrado */
+  height: 90px; /* Tamanho do quadrado */
+  border-radius: 20%;
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.068),
+    rgba(255, 255, 255, 0.411));
+  z-index: -1;
+  rotate: -10deg;
+  opacity: 0.5;
 }
 
 .modal-container .options {
@@ -189,12 +240,17 @@
 .modal-container .info-header {
   display: flex;
   justify-content: space-between;
-  margin: 1rem 3.3rem;
+  margin: 0rem 3.3rem;
 }
 
 .info-header .pokemon-name {
   font-weight: bold;
   font-size: 1.7rem;
+}
+
+.info-header .number-modal {
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .info-header .pokemon-name-and-type {
@@ -239,7 +295,27 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin: 2rem 2rem;
+  padding: 1rem 2rem;
+}
+.pokemon-infos li {
+  display: flex;
+  text-transform: lowercase;
+  text-align: start;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+.pokemon-infos li .title {
+  opacity: 0.5;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.pokemon-infos li .information {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-transform: lowercase;
+  text-align: start;
 }
 
 /* Outras resoluções */

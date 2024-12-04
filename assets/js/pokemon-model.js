@@ -9,5 +9,6 @@ class Pokemon {
     weight;
     abilities = [];
     stats = [];
+    description;
     
 }

@@ -32,7 +32,6 @@ pokeApi.getPokemonDescription = (pokemonId) => {
       const flavorTextEntry = speciesData.flavor_text_entries.find(
         (entry) => entry.language.name === "en"
       );
-      console.log(flavorTextEntry);
       return flavorTextEntry
         ? flavorTextEntry.flavor_text
         : "No description available.";
@@ -62,7 +61,6 @@ function convertPokeApiDetailToPokemon(pokeDetail, description) {
   pokemon.description = pokemon.description
     .replace(/\n/g, " ")
     .replace(/\f/g, " ");
-  console.log(pokemon.description);
   pokemon.name = pokeDetail.name[0].toUpperCase() + pokeDetail.name.slice(1);
   pokemon.height = pokemon.height * 10 + " cm";
   pokemon.weight = pokemon.weight / 10 + " kg";

@@ -237,6 +237,10 @@
   background-image: linear-gradient(to right, #f3f5fc, #f3f5fc);
 }
 
+.favorite.favorite-active {
+  -webkit-text-fill-color: red;
+}
+
 .modal-container .info-header {
   display: flex;
   justify-content: space-between;

@@ -1,6 +1,8 @@
 const olPokemons = document.querySelector(".pokemons");
 const loadMoreButton = document.querySelector("#load-more-button");
 const modalContainer = document.querySelector(".modal-container");
+
+const favoritePokemonsArr = [];
 const limit = 5;
 let offset = 0;
 
@@ -97,15 +99,22 @@ function openModal(pokemon) {
     </div>
   `;
 }
-
 function toggleFavorite(number) {
-  const favoritePokemons = document.querySelector(".favorite");
+  const favoriteButton = document.querySelector(".favorite");
 
-  if (favoritePokemons.style.webkitTextFillColor === "transparent") {
-    favoritePokemons.style.webkitTextFillColor = "red";
+  const isFavorite = favoriteButton.classList.contains("favorite-active");
+
+  if (isFavorite) {
+    favoriteButton.classList.remove("favorite-active");
+    favoritePokemonsArr.splice(favoritePokemonsArr.indexOf(number), 1);
   } else {
-    favoritePokemons.style.webkitTextFillColor = "transparent";
+    favoriteButton.classList.add("favorite-active");
+    favoritePokemonsArr.push(number);
   }
+
+  favoriteButton.style.webkitTextFillColor = isFavorite ? "transparent" : "red";
+
+  console.log(favoritePokemonsArr);
 }
 
 // Evento para fechar o modal

@@ -47,7 +47,7 @@ header {
   transform: translateY(4px);
 }
 
-.nav, ul, li, a, .favorites {
+.nav, ul, li {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -313,22 +313,10 @@ ul {
   margin: 2rem 2rem 0 2rem;
 }
 
-.options .back-to-pokedex,
-.options .favorite {
+.options .back-to-pokedex {
   font-size: 1.8rem;
   color: #fff;
   cursor: pointer;
-}
-
-.options .favorite {
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-image: linear-gradient(to right, #f3f5fc, #f3f5fc);
-}
-
-.favorite.favorite-active {
-  -webkit-text-fill-color: red;
 }
 
 .modal-container .info-header {
@@ -368,7 +356,7 @@ ul {
   border-radius: 1rem;
 }
 
-.modal-container img {
+.modal-container>img {
   width: 50%;
   align-self: center;
   z-index: 501;

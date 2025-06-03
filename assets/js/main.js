@@ -58,7 +58,7 @@ function openModal(pokemon) {
   modalContainer.innerHTML = `
     <div class="options">
       <button class="back-to-pokedex">⇤</button>
-      <img src="assets/img/favoritesoff.png" class="favorites-toggle" height="30" width="30" onClick="openFavorites()"></img>
+      <img src="assets/img/favoritesoff.png" id="favorites-toggle" height="30" width="30" onclick="openFavorites()"></img>
     </div>
     <div class="info-header">
       <div class="pokemon-name-and-type">
@@ -122,13 +122,17 @@ function menuOnClick() {
 
 function openFavorites() {
   const favoriteImg = document.getElementById("favorites-open");
+  const favoriteToggle = document.getElementById("favorites-toggle");
 
   const isOff = favoriteImg.src.includes("favoritesoff");
 
   favoriteImg.src = isOff
     ? "assets/img/favoriteson.png"
     : "assets/img/favoritesoff.png";
-    console.log("Deu certo")
+
+  favoriteToggle.src = isOff
+    ? "assets/img/favoriteson.png"
+    : "assets/img/favoritesoff.png";
 }
 
 function toggleDarkMode() {

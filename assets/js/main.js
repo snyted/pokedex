@@ -55,12 +55,16 @@ function openModal(pokemon) {
 
   modalContainer.className = "modal-container";
   modalContainer.classList.add(pokemon.type);
+
+  const whiteHeartSrc = "assets/img/white-heart.svg";
+  const backToPokedexSrc = "assets/img/back-to-pokedex.png";
+
   modalContainer.innerHTML = `
     <div class="options">
       <button class="back-to-pokedex">
-      <img src="assets/img/back-to-pokedex.png" height="30" width="30" onclick="closeModal()"></img>
+        <img src="${backToPokedexSrc}" alt="Voltar para Pokedex" height="30" width="30" onclick="closeModal()">
       </button>
-      <img src="assets/img/white-heart.png" id="favorites-toggle" height="30" width="30" onclick="toggleItems()"></img>
+      <img src="${whiteHeartSrc}" id="favorites-toggle" height="30" width="30" onclick="toggleItems()" alt="Favoritar">
     </div>
     <div class="info-header">
       <div class="pokemon-name-and-type">
@@ -91,7 +95,7 @@ function openModal(pokemon) {
         }</div></li>
         <li><span class="title">Abilities</span> <div class="information">${
           pokemon.abilities ? pokemon.abilities.join(", ") : "N/A"
-        } </div></li>
+        }</div></li>
         <li><span class="title">Base Experience</span> <div class="information">${
           pokemon.baseExperience || "N/A"
         }</div></li>

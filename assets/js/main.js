@@ -57,8 +57,10 @@ function openModal(pokemon) {
   modalContainer.classList.add(pokemon.type);
   modalContainer.innerHTML = `
     <div class="options">
-      <button class="back-to-pokedex">⇤</button>
-      <img src="assets/img/favoritesoff.png" id="favorites-toggle" height="30" width="30" onclick="openFavorites()"></img>
+      <button class="back-to-pokedex">
+      <img src="assets/img/back-to-pokedex.png" height="30" width="30" onclick="closeModal()"></img>
+      </button>
+      <img src="assets/img/white-heart.png" id="favorites-toggle" height="30" width="30" onclick="toggleItems()"></img>
     </div>
     <div class="info-header">
       <div class="pokemon-name-and-type">
@@ -99,11 +101,9 @@ function openModal(pokemon) {
 }
 
 // Evento para fechar o modal
-modalContainer.addEventListener("click", (event) => {
-  if (event.target.classList.contains("back-to-pokedex")) {
-    modalContainer.style.display = "none";
-  }
-});
+function closeModal() {
+  modalContainer.style.display = "none";
+}
 
 // Eventos de carregar mais pokémons
 loadMoreButton.addEventListener("click", () => {
@@ -120,7 +120,7 @@ function menuOnClick() {
   document.getElementById("nav").classList.toggle("change");
 }
 
-function openFavorites() {
+function toggleItems() {
   const favoriteImg = document.getElementById("favorites-open");
   const favoriteToggle = document.getElementById("favorites-toggle");
 
@@ -130,9 +130,11 @@ function openFavorites() {
     ? "assets/img/favoriteson.png"
     : "assets/img/favoritesoff.png";
 
-  favoriteToggle.src = isOff
+  const isOffToggle = favoriteToggle.src.includes("white-heart");
+
+  favoriteToggle.src = isOffToggle
     ? "assets/img/favoriteson.png"
-    : "assets/img/favoritesoff.png";
+    : "assets/img/white-heart.svg";
 }
 
 function toggleDarkMode() {
@@ -144,6 +146,21 @@ function toggleDarkMode() {
     ? "assets/img/darkmodeon.png"
     : "assets/img/darkmodeoff.png";
 }
+
+function themeSongPokemon() {
+  window.addEventListener("DOMContentLoaded", () => {
+    const audio = document.getElementById("pokemon-abertura");
+    if (audio) {
+      audio.volume = 0.7;
+      audio.loop = true;
+      audio.play().catch((e) => {
+        console.warn("Navegador bloqueou a reprodução automática:", e);
+      });
+    }
+  });
+}
+
+themeSongPokemon();
 
 // Carregar os primeiros pokémons
 loadPokemonItens(offset, limit);

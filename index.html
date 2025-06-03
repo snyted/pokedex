@@ -38,13 +38,13 @@
             </div>
             <nav id="nav" class="nav">
               <ul>
-                <li><img src="assets/img/favoritesoff.png" class="favorites-toggle" id="favorites-open" alt="" height="30" width="30" onclick="openFavorites()"></li>
+                <li><img src="assets/img/favoritesoff.png" class="favorites-toggle" id="favorites-open" alt="" height="30" width="30" onclick="toggleItems()"></li>
                 <li><img src="assets/img/darkmodeoff.png" id="dark-mode-toggle" alt="" height="30" width="30" onclick="toggleDarkMode()"></li>
               </ul>
             </nav>
           </div>
         </header>
-
+        <h1>Pokedex</h1>
       <ol class="pokemons">
         <!-- Pokemons aqui -->
       </ol>
@@ -60,6 +60,7 @@
       </div>
     </section>
 
+    <audio src="assets/audio/pokemon-abertura.mp3" id="pokemon-abertura"></audio>
     <!-- Script Principal -->
     <script src="assets/js/pokemon-model.js"></script>
     <script src="assets/js/poke-api.js"></script>

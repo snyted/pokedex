@@ -58,9 +58,7 @@ function openModal(pokemon) {
   modalContainer.innerHTML = `
     <div class="options">
       <button class="back-to-pokedex">⇤</button>
-      <span class="favorite" onclick="toggleFavorite(${
-        pokemon.number
-      })">❤</span>
+      <img src="assets/img/favoritesoff.png" class="favorites-toggle" height="30" width="30" onClick="openFavorites()"></img>
     </div>
     <div class="info-header">
       <div class="pokemon-name-and-type">
@@ -99,23 +97,6 @@ function openModal(pokemon) {
     </div>
   `;
 }
-function toggleFavorite(number) {
-  const favoriteButton = document.querySelector(".favorite");
-
-  const isFavorite = favoriteButton.classList.contains("favorite-active");
-
-  if (isFavorite) {
-    favoriteButton.classList.remove("favorite-active");
-    favoritePokemonsArr.splice(favoritePokemonsArr.indexOf(number), 1);
-  } else {
-    favoriteButton.classList.add("favorite-active");
-    favoritePokemonsArr.push(number);
-  }
-
-  favoriteButton.style.webkitTextFillColor = isFavorite ? "transparent" : "red";
-
-  console.log(favoritePokemonsArr);
-}
 
 // Evento para fechar o modal
 modalContainer.addEventListener("click", (event) => {
@@ -132,6 +113,33 @@ loadMoreButton.addEventListener("click", () => {
     loadMoreButton.parentElement.removeChild(loadMoreButton);
   }
 });
+
+// Botão do Menu Burguer e Navegação
+function menuOnClick() {
+  document.getElementById("menu-bar").classList.toggle("change");
+  document.getElementById("nav").classList.toggle("change");
+}
+
+function openFavorites() {
+  const favoriteImg = document.getElementById("favorites-open");
+
+  const isOff = favoriteImg.src.includes("favoritesoff");
+
+  favoriteImg.src = isOff
+    ? "assets/img/favoriteson.png"
+    : "assets/img/favoritesoff.png";
+    console.log("Deu certo")
+}
+
+function toggleDarkMode() {
+  const darkModeToggle = document.getElementById("dark-mode-toggle");
+
+  const isOff = darkModeToggle.src.includes("darkmodeoff");
+
+  darkModeToggle.src = isOff
+    ? "assets/img/darkmodeon.png"
+    : "assets/img/darkmodeoff.png";
+}
 
 // Carregar os primeiros pokémons
 loadPokemonItens(offset, limit);

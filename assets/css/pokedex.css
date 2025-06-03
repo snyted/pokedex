@@ -7,12 +7,99 @@
   background-color: #fff;
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+/* Menu */
+
+#menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+  position: relative;
+}
+
+#menu-bar {
+  width: 40px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.bar {
+  height: 5px;
+  width: 100%;
+  background-color: #3f3f3f;
+  display: block;
+  border-radius: 3px;
+  transition: 0.3s ease;
+}
+
+#bar1 {
+  transform: translateY(-4px);
+}
+
+#bar3 {
+  transform: translateY(4px);
+}
+
+.nav, ul, li, a, .favorites {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav {
+  display: none;
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  padding: 10px 20px;
+  border-radius: 10px;
+  transform: translateX(-50%);
+}
+
+.change {
+  display: block;
+}
+
+.change #bar1 {
+  transform: translateY(4px) rotateZ(-45deg);
+}
+
+.change #bar2 {
+  opacity: 0;
+}
+
+.change #bar3 {
+  transform: translateY(-6px) rotateZ(45deg);
+}
+
+.pokeball {
+  width: 100px;
+  height: 100px;
+}
+
+/* Fim do Menu */
+
+/* Pokemons */
+
 .pokemons {
   display: grid;
   grid-template-columns: 1fr;
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 50px 0 0 0;
 }
 
 .pokemons .pokemon {
@@ -20,6 +107,9 @@
   flex-direction: column;
   margin: 0.5rem;
   padding: 2rem 1rem;
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px); 
+  border: 1px solid rgba(255, 255, 255, 0.3); 
   border-radius: 1rem;
   color: #fff;
   z-index: 1;
@@ -36,7 +126,7 @@
   background-image: url("../img/ball-game-poke-sport-sports-svgrepo-com.svg");
   background-size: contain;
   background-repeat: no-repeat;
-  opacity: 0.3; /* Define a transparência */
+  opacity: 0.3; 
   filter: brightness(1.1);
   z-index: -1;
 }

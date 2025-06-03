@@ -18,9 +18,32 @@
     <link rel="stylesheet" href="assets/css/global.css" />
     <link rel="stylesheet" href="assets/css/pokedex.css" />
   </head>
+
   <body>
-    <section class="content">
-      <h1>Pokedex</h1>
+
+        <header>
+          <dotlottie-player
+          src="https://lottie.host/d08619bf-6195-49b9-a254-0c7a0602c485/WCAkjGwEfH.lottie"
+          background="transparent"
+          speed="1"
+          class="pokeball"
+          loop
+          autoplay
+        ></dotlottie-player>
+          <div id="menu">
+            <div id="menu-bar" onclick="menuOnClick()">
+              <div id="bar1" class="bar"></div>
+              <div id="bar2" class="bar"></div>
+              <div id="bar3" class="bar"></div>
+            </div>
+            <nav id="nav" class="nav">
+              <ul>
+                <li><img src="assets/img/favoritesoff.png" class="favorites-toggle" id="favorites-open" alt="" height="30" width="30" onclick="openFavorites()"></li>
+                <li><img src="assets/img/darkmodeoff.png" id="dark-mode-toggle" alt="" height="30" width="30" onclick="toggleDarkMode()"></li>
+              </ul>
+            </nav>
+          </div>
+        </header>
 
       <ol class="pokemons">
         <!-- Pokemons aqui -->
@@ -41,5 +64,9 @@
     <script src="assets/js/pokemon-model.js"></script>
     <script src="assets/js/poke-api.js"></script>
     <script defer src="assets/js/main.js"></script>
+    <script
+  src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+  type="module"
+></script>
   </body>
 </html>

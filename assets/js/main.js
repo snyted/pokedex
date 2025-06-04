@@ -2,7 +2,8 @@ const olPokemons = document.querySelector(".pokemons");
 const loadMoreButton = document.querySelector("#load-more-button");
 const modalContainer = document.querySelector(".modal-container");
 
-const favoritePokemonsArr = [];
+const pokemonsFavs = [];
+const pokemonInfos = [];
 const limit = 5;
 let offset = 0;
 
@@ -10,14 +11,22 @@ async function loadPokemonItens(offset, limit) {
   const pokemons = await pokeApi.getPokemon(offset, limit);
   let addToHtml = "";
   pokemons.map((pokemon) => {
+    pokemonInfos.push(pokemon);
     addToHtml += convertPokemonToLi(pokemon);
   });
+
   olPokemons.innerHTML += addToHtml;
+
+  pokemonInfos.forEach((pokemon) => {
+    console.log(pokemon.name);
+  });
 
   gettingCurrentPokemon();
 }
 
+// Função para converter o pokemon para HTML
 function convertPokemonToLi(pokemon) {
+  console.log(pokemon);
   return `
   <li class="pokemon ${pokemon.type}" data-pokemon='${JSON.stringify(pokemon)}'>
     <span class="number">#${pokemon.number}</span>
@@ -34,6 +43,7 @@ function convertPokemonToLi(pokemon) {
   `;
 }
 
+// Função para pegar o pokemon clicado
 function gettingCurrentPokemon() {
   document.querySelectorAll(".pokemon").forEach((pokemonItem) => {
     pokemonItem.addEventListener("click", (event) => {
@@ -44,27 +54,27 @@ function gettingCurrentPokemon() {
 }
 
 function openModal(pokemon) {
-  modalContainer.style.transition = "opacity 0.3s ease-in-out";
+  const backToPokedexSrc = "assets/img/back-to-pokedex.png";
+  let favSrc = "";
 
-  modalContainer.style.display = "flex";
-  modalContainer.style.opacity = "0";
-
-  requestAnimationFrame(() => {
-    modalContainer.style.opacity = "1";
-  });
-
+  modalAnimation();
   modalContainer.className = "modal-container";
   modalContainer.classList.add(pokemon.type);
 
-  const whiteHeartSrc = "assets/img/white-heart.svg";
-  const backToPokedexSrc = "assets/img/back-to-pokedex.png";
+  if (pokemonsFavs.includes(pokemon.name)) {
+    favSrc = "assets/img/favoriteson.png";
+  } else {
+    favSrc = "assets/img/white-heart.svg";
+  }
 
   modalContainer.innerHTML = `
     <div class="options">
       <button class="back-to-pokedex">
         <img src="${backToPokedexSrc}" alt="Voltar para Pokedex" height="30" width="30" onclick="closeModal()">
       </button>
-      <img src="${whiteHeartSrc}" id="favorites-toggle" height="30" width="30" onclick="toggleItems()" alt="Favoritar">
+      <img src="${favSrc}" id="favorites-toggle" height="30" width="30" onclick="addToFavorites('${
+    pokemon.name
+  }')" alt="Favoritar">
     </div>
     <div class="info-header">
       <div class="pokemon-name-and-type">
@@ -104,9 +114,14 @@ function openModal(pokemon) {
   `;
 }
 
-// Evento para fechar o modal
-function closeModal() {
-  modalContainer.style.display = "none";
+// Animação para abrir o modal
+function modalAnimation() {
+  modalContainer.style.transition = "opacity 0.3s ease-in-out";
+  modalContainer.style.display = "flex";
+  modalContainer.style.opacity = "0";
+  requestAnimationFrame(() => {
+    modalContainer.style.opacity = "1";
+  });
 }
 
 // Eventos de carregar mais pokémons
@@ -118,53 +133,61 @@ loadMoreButton.addEventListener("click", () => {
   }
 });
 
-// Botão do Menu Burguer e Navegação
+// Botões do site
 function menuOnClick() {
   document.getElementById("menu-bar").classList.toggle("change");
   document.getElementById("nav").classList.toggle("change");
 }
 
-function toggleItems() {
-  const favoriteImg = document.getElementById("favorites-open");
-  const favoriteToggle = document.getElementById("favorites-toggle");
-
-  const isOff = favoriteImg.src.includes("favoritesoff");
-
-  favoriteImg.src = isOff
-    ? "assets/img/favoriteson.png"
-    : "assets/img/favoritesoff.png";
-
-  const isOffToggle = favoriteToggle.src.includes("white-heart");
-
-  favoriteToggle.src = isOffToggle
-    ? "assets/img/favoriteson.png"
-    : "assets/img/white-heart.svg";
+function closeModal() {
+  modalContainer.style.display = "none";
 }
 
 function toggleDarkMode() {
   const darkModeToggle = document.getElementById("dark-mode-toggle");
-
   const isOff = darkModeToggle.src.includes("darkmodeoff");
-
   darkModeToggle.src = isOff
     ? "assets/img/darkmodeon.png"
     : "assets/img/darkmodeoff.png";
 }
 
-function themeSongPokemon() {
-  window.addEventListener("DOMContentLoaded", () => {
-    const audio = document.getElementById("pokemon-abertura");
-    if (audio) {
-      audio.volume = 0.7;
-      audio.loop = true;
-      audio.play().catch((e) => {
-        console.warn("Navegador bloqueou a reprodução automática:", e);
-      });
-    }
-  });
+function addToFavorites(pokemonFavoritedName) {
+  const favoriteToggle = document.getElementById("favorites-toggle");
+
+  if (favoriteToggle.src.includes("white-heart")) {
+    pokemonsFavs.push(pokemonFavoritedName);
+    favoriteToggle.src = "assets/img/favoriteson.png";
+  } else if (favoriteToggle.src.includes("favoriteson")) {
+    const index = pokemonsFavs.indexOf(pokemonFavoritedName);
+    pokemonsFavs.splice(index, 1);
+    favoriteToggle.src = "assets/img/white-heart.svg";
+  }
 }
 
-themeSongPokemon();
+function openFavorites() {
+  const favId = document.getElementById("favorites-open");
+  const isOff = favId.src.includes("favoritesoff");
+
+  if (isOff) {
+    favId.src = "assets/img/favoriteson.png";
+
+    olPokemons.innerHTML = "";
+
+    const favoritosUnicos = pokemonInfos.filter((pokemon, index, self) =>
+      pokemonsFavs.includes(pokemon.name) &&
+      index === self.findIndex(p => p.name === pokemon.name)
+    );
+
+    olPokemons.innerHTML = favoritosUnicos
+      .map(pokemon => convertPokemonToLi(pokemon))
+      .join('');
+  } else {
+    favId.src = "assets/img/favoritesoff.png";
+    olPokemons.innerHTML = "";
+    loadPokemonItens(offset, limit);
+  }
+}
+
 
 // Carregar os primeiros pokémons
 loadPokemonItens(offset, limit);

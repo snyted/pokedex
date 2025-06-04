@@ -124,6 +124,15 @@ ul {
   position: relative;
 }
 
+.favorite-heart {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 20px;
+  color: red;
+  z-index: 10;
+}
+
 .pokemon::after {
   content: "";
   position: absolute;

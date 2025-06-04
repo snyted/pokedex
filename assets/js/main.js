@@ -26,9 +26,11 @@ async function loadPokemonItens(offset, limit) {
 
 // Função para converter o pokemon para HTML
 function convertPokemonToLi(pokemon) {
-  console.log(pokemon);
+  const isFavorited = pokemonsFavs.includes(pokemon.name);
+
   return `
   <li class="pokemon ${pokemon.type}" data-pokemon='${JSON.stringify(pokemon)}'>
+    ${isFavorited ? '<span class="favorite-heart">❤️</span>' : ""}
     <span class="number">#${pokemon.number}</span>
     <span class="name">${pokemon.name}</span>
     <div class="detail">
@@ -162,6 +164,8 @@ function addToFavorites(pokemonFavoritedName) {
     pokemonsFavs.splice(index, 1);
     favoriteToggle.src = "assets/img/white-heart.svg";
   }
+
+
 }
 
 function openFavorites() {
@@ -170,6 +174,7 @@ function openFavorites() {
 
   if (isOff) {
     favId.src = "assets/img/favoriteson.png";
+    loadMoreButton.style.display = "none";
 
     olPokemons.innerHTML = "";
 
@@ -184,10 +189,12 @@ function openFavorites() {
   } else {
     favId.src = "assets/img/favoritesoff.png";
     olPokemons.innerHTML = "";
+
     loadPokemonItens(offset, limit);
+
+    loadMoreButton.style.display = "block";
   }
 }
-
 
 // Carregar os primeiros pokémons
 loadPokemonItens(offset, limit);

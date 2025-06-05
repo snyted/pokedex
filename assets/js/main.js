@@ -1,11 +1,16 @@
 const olPokemons = document.querySelector(".pokemons");
 const loadMoreButton = document.querySelector("#load-more-button");
 const modalContainer = document.querySelector(".modal-container");
+const h1 = document.querySelector("h1");
 
 let pokemonsFavs = JSON.parse(localStorage.getItem("pokemonsFavs")) || [];
 const pokemonInfos = [];
 const limit = 5;
 let offset = 0;
+
+const favoritesTitle = document.createElement("h2");
+favoritesTitle.className = "my-pokemons-favorites";
+favoritesTitle.innerText = "Seus pokemons favoritos ";
 
 async function loadPokemonItens(offset, limit) {
   const pokemons = await pokeApi.getPokemon(offset, limit);
@@ -152,7 +157,6 @@ function toggleDarkMode() {
 
 function addToFavorites(pokemonFavoritedName) {
   const favoriteToggle = document.getElementById("favorites-toggle");
-
   if (favoriteToggle.src.includes("white-heart")) {
     pokemonsFavs.push(pokemonFavoritedName);
     favoriteToggle.src = "assets/img/favoriteson.png";
@@ -165,6 +169,7 @@ function addToFavorites(pokemonFavoritedName) {
   localStorage.setItem("pokemonsFavs", JSON.stringify(pokemonsFavs));
 }
 
+// Abrir e fechar favoritos
 function openFavorites() {
   const favId = document.getElementById("favorites-open");
   const isOff = favId.src.includes("favoritesoff");
@@ -172,12 +177,12 @@ function openFavorites() {
   if (isOff) {
     favId.src = "assets/img/favoriteson.png";
     loadMoreButton.style.display = "none";
-
+    h1.insertAdjacentElement("afterend", favoritesTitle);
     olPokemons.innerHTML = "";
-
     avoidDuplicates();
   } else {
     favId.src = "assets/img/favoritesoff.png";
+    favoritesTitle.remove();
     olPokemons.innerHTML = "";
 
     loadPokemonItens(offset, limit);
@@ -185,6 +190,7 @@ function openFavorites() {
   }
 }
 
+// Evitar pokémons duplicados
 function avoidDuplicates() {
   const favoritosUnicos = pokemonInfos.filter(
     (pokemon, index, self) =>

@@ -166,8 +166,8 @@ function toggleDarkMode() {
 function darkMode(isOff) {
   if (isOff) {
     document.body.classList.add("dark-mode");
-    h1.style.color = "#fff";
-    favoritesTitle.style.color = "#fff";
+    h1.style.color = "#fdf6e3";
+    favoritesTitle.style.color = "#fdf6e3";
     menuBarTop.style.backgroundColor = "#000";
     menuBarMiddle.style.backgroundColor = "#000";
     menuBarBottom.style.backgroundColor = "#000";

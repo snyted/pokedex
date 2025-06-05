@@ -15,13 +15,47 @@
       referrerpolicy="no-referrer"
     />
 
+    <!-- AOS Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <!-- Meu CSS -->
     <link rel="stylesheet" href="assets/css/global.css" />
     <link rel="stylesheet" href="assets/css/pokedex.css" />
+    <link rel="stylesheet" href="assets/css/search-pokemon.css">
   </head>
 
   <body>
         <header>
+          <div class="search-container">
+            <div class="search-box" onclick="toggleSearch()">
+                <input type="text" class="search-input" placeholder="Buscar Pokémon..." 
+                       oninput="searchPokemon(this.value)" 
+                       onblur="closeSearch()" 
+                       onfocus="openSearch()">
+                
+                <svg class="pokeball-icon" viewBox="0 0 100 100" onclick="toggleSearch()">
+                    <defs>
+                        <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ee5a52;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="whiteGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#f8f9fa;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2"/>
+                    <path d="M 4 50 A 46 46 0 0 1 96 50 Z" fill="url(#redGrad)"/>
+                    <path d="M 4 50 A 46 46 0 0 0 96 50 Z" fill="url(#whiteGrad)"/>
+                    <line x1="4" y1="50" x2="96" y2="50" stroke="rgba(255,255,255,0.8)" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="10" fill="rgba(255,255,255,0.9)" stroke="rgba(255,255,255,0.8)" stroke-width="2"/>
+                    <circle cx="47" cy="47" r="2" fill="rgba(255,255,255,0.6)"/>
+                </svg>
+            </div>
+            
+            <div class="search-results" id="searchResults"></div>
+        </div>
           <div id="menu">
             <div id="menu-bar" onclick="menuOnClick()">
               <div id="bar1" class="bar"></div>
@@ -51,6 +85,12 @@
         <button id="load-more-button" type="button">Load More</button>
       </div>
     </section>
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>    
+
     <!-- Script Principal -->
     <script src="assets/js/pokemon-model.js"></script>
     <script src="assets/js/poke-api.js"></script>

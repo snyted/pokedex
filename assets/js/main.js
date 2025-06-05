@@ -2,6 +2,9 @@ const olPokemons = document.querySelector(".pokemons");
 const loadMoreButton = document.querySelector("#load-more-button");
 const modalContainer = document.querySelector(".modal-container");
 const h1 = document.querySelector("h1");
+const menuBarTop = document.getElementById("bar1");
+const menuBarMiddle = document.getElementById("bar2");
+const menuBarBottom = document.getElementById("bar3");
 
 let pokemonsFavs = JSON.parse(localStorage.getItem("pokemonsFavs")) || [];
 const pokemonInfos = [];
@@ -10,7 +13,7 @@ let offset = 0;
 
 const favoritesTitle = document.createElement("h2");
 favoritesTitle.className = "my-pokemons-favorites";
-favoritesTitle.innerText = "Seus pokemons favoritos ";
+favoritesTitle.innerText = "Aqui estão seus Pokemons favoritos! 😁";
 
 async function loadPokemonItens(offset, limit) {
   const pokemons = await pokeApi.getPokemon(offset, limit);
@@ -150,9 +153,32 @@ function closeModal() {
 function toggleDarkMode() {
   const darkModeToggle = document.getElementById("dark-mode-toggle");
   const isOff = darkModeToggle.src.includes("darkmodeoff");
-  darkModeToggle.src = isOff
-    ? "assets/img/darkmodeon.png"
-    : "assets/img/darkmodeoff.png";
+  
+  if (isOff) {
+    darkModeToggle.src = "assets/img/darkmodeon.png";
+  } else {
+    darkModeToggle.src = "assets/img/darkmodeoff.png";
+  }
+
+  darkMode(isOff);
+}
+
+function darkMode(isOff) {
+  if (isOff) {
+    document.body.classList.add("dark-mode");
+    h1.style.color = "#fff";
+    favoritesTitle.style.color = "#fff";
+    menuBarTop.style.backgroundColor = "#000";
+    menuBarMiddle.style.backgroundColor = "#000";
+    menuBarBottom.style.backgroundColor = "#000";
+  } else {
+    document.body.classList.remove("dark-mode");
+    h1.style.color = "#3f3f3f";
+    favoritesTitle.style.color = "#3f3f3f";
+    menuBarTop.style.backgroundColor = "#3f3f3f";
+    menuBarMiddle.style.backgroundColor = "#3f3f3f";
+    menuBarBottom.style.backgroundColor = "#3f3f3f";
+  }
 }
 
 function addToFavorites(pokemonFavoritedName) {

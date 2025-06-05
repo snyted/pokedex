@@ -14,17 +14,18 @@ header {
   padding: 1rem;
 }
 
-h1, h2 {
+h1,
+h2 {
   text-align: center;
   margin: 0;
+  margin-top: 1rem;
   padding: 0;
-  color: #272727
+  color: #3f3f3f;
 }
 
 h1 {
   font-size: 2rem;
 }
-
 
 /* Menu */
 
@@ -59,7 +60,9 @@ h1 {
   transform: translateY(4px);
 }
 
-.nav, ul, li {
+.nav,
+ul,
+li {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -102,6 +105,15 @@ ul {
   height: 100px;
 }
 
+.dark-mode {
+  background: #2e2e2e;
+}
+
+.dark-mode .pokemons .pokemon {
+  box-shadow: 0 3px 9px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 /* Fim do Menu */
 
 /* Pokemons */
@@ -120,21 +132,12 @@ ul {
   margin: 0.5rem;
   padding: 2rem 1rem;
   box-shadow: 0 3px 9px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px); 
-  border: 1px solid rgba(255, 255, 255, 0.3); 
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 1rem;
   color: #fff;
   z-index: 1;
   position: relative;
-}
-
-.favorite-heart {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  font-size: 20px;
-  color: red;
-  z-index: 10;
 }
 
 .pokemon::after {
@@ -147,7 +150,7 @@ ul {
   background-image: url("../img/ball-game-poke-sport-sports-svgrepo-com.svg");
   background-size: contain;
   background-repeat: no-repeat;
-  opacity: 0.3; 
+  opacity: 0.3;
   filter: brightness(1.1);
   z-index: -1;
 }
@@ -320,7 +323,8 @@ ul {
   background-image: linear-gradient(
     45deg,
     rgba(255, 255, 255, 0.068),
-    rgba(255, 255, 255, 0.411));
+    rgba(255, 255, 255, 0.411)
+  );
   z-index: -1;
   rotate: -10deg;
   opacity: 0.5;
@@ -377,7 +381,7 @@ ul {
   border-radius: 1rem;
 }
 
-.modal-container>img {
+.modal-container > img {
   width: 50%;
   align-self: center;
   z-index: 501;
@@ -394,7 +398,7 @@ ul {
   color: #000;
   border-radius: 2rem 2rem 0 0;
   z-index: 500;
-  padding: 1rem 0
+  padding: 1rem 0;
 }
 
 .pokemon-infos ol {

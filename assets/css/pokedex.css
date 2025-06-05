@@ -117,6 +117,11 @@ ul {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.dark-mode .pokemon-infos {
+  background-color: #1c1c1e;
+  color: #fafafa;
+}
+
 /* Fim do Menu */
 
 /* Pokemons */
@@ -397,8 +402,8 @@ ul {
   justify-self: center;
   margin-top: -1.5rem;
   height: 100%;
-  background-color: #fff;
-  color: #000;
+  background-color: #fafafa;
+  color: #3f3f3f;
   border-radius: 2rem 2rem 0 0;
   z-index: 500;
   padding: 1rem 0;

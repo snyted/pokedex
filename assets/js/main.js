@@ -11,10 +11,6 @@ const pokemonInfos = [];
 const limit = 5;
 let offset = 0;
 
-const favoritesTitle = document.createElement("h2");
-favoritesTitle.className = "my-pokemons-favorites";
-favoritesTitle.innerText = "Aqui estão seus Pokemons favoritos! 😁";
-
 async function loadPokemonItens(offset, limit) {
   const pokemons = await pokeApi.getPokemon(offset, limit);
   let addToHtml = "";
@@ -167,14 +163,12 @@ function darkMode(isOff) {
   if (isOff) {
     document.body.classList.add("dark-mode");
     h1.style.color = "#fdf6e3";
-    favoritesTitle.style.color = "#fdf6e3";
     menuBarTop.style.backgroundColor = "#000";
     menuBarMiddle.style.backgroundColor = "#000";
     menuBarBottom.style.backgroundColor = "#000";
   } else {
     document.body.classList.remove("dark-mode");
     h1.style.color = "#3f3f3f";
-    favoritesTitle.style.color = "#3f3f3f";
     menuBarTop.style.backgroundColor = "#3f3f3f";
     menuBarMiddle.style.backgroundColor = "#3f3f3f";
     menuBarBottom.style.backgroundColor = "#3f3f3f";
@@ -203,12 +197,10 @@ function openFavorites() {
   if (isOff) {
     favId.src = "assets/img/favoriteson.png";
     loadMoreButton.style.display = "none";
-    h1.insertAdjacentElement("afterend", favoritesTitle);
     olPokemons.innerHTML = "";
     avoidDuplicates();
   } else {
     favId.src = "assets/img/favoritesoff.png";
-    favoritesTitle.remove();
     olPokemons.innerHTML = "";
 
     loadPokemonItens(offset, limit);

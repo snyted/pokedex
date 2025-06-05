@@ -2,7 +2,7 @@ const olPokemons = document.querySelector(".pokemons");
 const loadMoreButton = document.querySelector("#load-more-button");
 const modalContainer = document.querySelector(".modal-container");
 
-const pokemonsFavs = [];
+let pokemonsFavs = JSON.parse(localStorage.getItem("pokemonsFavs")) || [];
 const pokemonInfos = [];
 const limit = 5;
 let offset = 0;
@@ -26,11 +26,8 @@ async function loadPokemonItens(offset, limit) {
 
 // Função para converter o pokemon para HTML
 function convertPokemonToLi(pokemon) {
-  const isFavorited = pokemonsFavs.includes(pokemon.name);
-
   return `
   <li class="pokemon ${pokemon.type}" data-pokemon='${JSON.stringify(pokemon)}'>
-    ${isFavorited ? '<span class="favorite-heart">❤️</span>' : ""}
     <span class="number">#${pokemon.number}</span>
     <span class="name">${pokemon.name}</span>
     <div class="detail">
@@ -165,7 +162,7 @@ function addToFavorites(pokemonFavoritedName) {
     favoriteToggle.src = "assets/img/white-heart.svg";
   }
 
-
+  localStorage.setItem("pokemonsFavs", JSON.stringify(pokemonsFavs));
 }
 
 function openFavorites() {
@@ -178,23 +175,26 @@ function openFavorites() {
 
     olPokemons.innerHTML = "";
 
-    const favoritosUnicos = pokemonInfos.filter((pokemon, index, self) =>
-      pokemonsFavs.includes(pokemon.name) &&
-      index === self.findIndex(p => p.name === pokemon.name)
-    );
-
-    olPokemons.innerHTML = favoritosUnicos
-      .map(pokemon => convertPokemonToLi(pokemon))
-      .join('');
+    avoidDuplicates();
   } else {
     favId.src = "assets/img/favoritesoff.png";
     olPokemons.innerHTML = "";
 
     loadPokemonItens(offset, limit);
-
     loadMoreButton.style.display = "block";
   }
 }
 
+function avoidDuplicates() {
+  const favoritosUnicos = pokemonInfos.filter(
+    (pokemon, index, self) =>
+      pokemonsFavs.includes(pokemon.name) &&
+      index === self.findIndex((p) => p.name === pokemon.name)
+  );
+
+  olPokemons.innerHTML = favoritosUnicos
+    .map((pokemon) => convertPokemonToLi(pokemon))
+    .join("");
+}
 // Carregar os primeiros pokémons
 loadPokemonItens(offset, limit);

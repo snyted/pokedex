@@ -26,8 +26,6 @@ async function loadPokemonItens(offset, limit) {
 
   pokemonsList.innerHTML += addToHtml;
   AOS.refresh();
-
-  gettingCurrentPokemon();
 }
 
 // Função para converter o pokemon para HTML
@@ -221,8 +219,6 @@ function openFavorites() {
 
     loadPokemonItens(offset, limit);
   }
-
-  gettingCurrentPokemon();
 }
 
 // Evitar pokémons duplicados
@@ -270,5 +266,4 @@ searchInput.addEventListener("input", () => {
     : pokemonInfos;
 
   pokemonsList.innerHTML = filtered.map((p, i) => showPokemon(p, i)).join("");
-  gettingCurrentPokemon();
 });

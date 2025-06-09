@@ -279,7 +279,9 @@ loadPokemonItens(offset, limit);
 searchInput.addEventListener('input', () => {
   const q = searchInput.value.toLowerCase().trim();
   const filtered = q
-    ? pokemonInfos.filter(p => p.name.toLowerCase().includes(q))
+    ? pokemonInfos.filter(poke =>
+        poke.name.toLowerCase().startsWith(q)
+      )
     : pokemonInfos;
 
   pokemonsList.innerHTML = filtered

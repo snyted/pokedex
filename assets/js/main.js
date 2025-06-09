@@ -52,14 +52,13 @@ function showPokemon(pokemon, index) {
 }
 
 // Função para pegar o pokemon clicado
-function gettingCurrentPokemon() {
-  document.querySelectorAll(".pokemon").forEach((pokemonItem) => {
-    pokemonItem.addEventListener("click", (event) => {
-      const pokemonData = JSON.parse(event.currentTarget.dataset.pokemon);
-      openModal(pokemonData);
-    });
-  });
-}
+pokemonsList.addEventListener("click", (event) => {
+  const pokemonItem = event.target.closest(".pokemon");
+  if (!pokemonItem) return;
+
+  const pokemonData = JSON.parse(pokemonItem.dataset.pokemon);
+  openModal(pokemonData);
+});
 
 function openModal(pokemon) {
   const backToPokedexSrc = "assets/img/back-to-pokedex.png";

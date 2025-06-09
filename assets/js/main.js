@@ -285,6 +285,5 @@ searchInput.addEventListener('input', () => {
   pokemonsList.innerHTML = filtered
     .map((p, i) => showPokemon(p, i))
     .join('');
-
   gettingCurrentPokemon();
 });

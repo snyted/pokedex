@@ -430,12 +430,17 @@ ul {
 }
 
 .dark-mode .pokemons .pokemon {
-  box-shadow: 0 3px 9px rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+  0 0 4px rgba(255, 255, 255, 0.1),
+  0 0 10px rgba(255, 255, 255, 0.08);
+border: 1px solid rgba(255, 255, 255, 0.05);
+backdrop-filter: blur(8px);
+color: #fafafa;
+transition: box-shadow 0.3s ease;
 }
 
 .dark-mode .pokemon-infos {
-  background-color: #1c1c1e;
+  background-color: #000000e0;
   color: #fafafa;
 }
 
@@ -446,7 +451,6 @@ ul {
 
 .dark-mode .search-box {
   background: rgba(40, 40, 40, 0.8);       /* fundo escuro, mas levemente translúcido */
-  border: 1px solid rgba(255, 255, 255, 0.15); /* borda fina clara para contorno */
   box-shadow: none;                        /* sem sombras pesadas */
 }
 
@@ -458,12 +462,12 @@ ul {
 
 .dark-mode .search-input {
   color: rgba(255, 255, 255, 0.9);         /* texto quase branco */
-  caret-color: rgba(255, 255, 255, 0.6);    /* cursor mais visível */
+  caret-color: transparent;                /* cursor mais visível */
   background: transparent;
 }
 
 .dark-mode .search-input::placeholder {
-  color: rgba(200, 200, 200, 0.5);         /* placeholder suave, mas legível */
+  color: rgba(200, 200, 200, 0.678);         /* placeholder suave, mas legível */
 }
 
 .dark-mode .pokeball-icon {

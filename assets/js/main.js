@@ -1,6 +1,5 @@
 // DOM
 const pokemonsList = document.querySelector(".pokemons");
-const loadMoreButton = document.querySelector("#load-more-button");
 const modalContainer = document.querySelector(".modal-container");
 const h1 = document.querySelector("h1");
 const menuBarTop = document.getElementById("bar1");
@@ -13,7 +12,7 @@ const searchInput = document.querySelector(".search-input");
 // Variáveis e States
 let pokemonsFavs = JSON.parse(localStorage.getItem("pokemonsFavs")) || [];
 const pokemonInfos = [];
-const limit = 156;
+const limit = 151;
 let offset = 0;
 
 async function loadPokemonItens(offset, limit) {
@@ -151,15 +150,6 @@ function closeModalAnimation() {
   });
 }
 
-// Eventos de carregar mais pokémons
-loadMoreButton.addEventListener("click", () => {
-  offset += limit;
-  loadPokemonItens(offset, limit);
-  if (offset + limit >= 151) {
-    loadMoreButton.parentElement.removeChild(loadMoreButton);
-  }
-});
-
 // Botões do site
 function menuOnClick() {
   document.getElementById("menu-bar").classList.toggle("change");
@@ -224,7 +214,6 @@ function openFavorites() {
 
   if (isOff) {
     favId.src = "assets/img/favoriteson.png";
-    loadMoreButton.style.display = "none";
     pokemonsList.innerHTML = "";
     avoidDuplicates();
   } else {
@@ -232,7 +221,6 @@ function openFavorites() {
     pokemonsList.innerHTML = "";
 
     loadPokemonItens(offset, limit);
-    loadMoreButton.style.display = "block";
   }
 
   gettingCurrentPokemon();
@@ -276,16 +264,12 @@ function closeSearch() {
 loadPokemonItens(offset, limit);
 
 // Busca interativa
-searchInput.addEventListener('input', () => {
+searchInput.addEventListener("input", () => {
   const q = searchInput.value.toLowerCase().trim();
   const filtered = q
-    ? pokemonInfos.filter(poke =>
-        poke.name.toLowerCase().startsWith(q)
-      )
+    ? pokemonInfos.filter((poke) => poke.name.toLowerCase().startsWith(q))
     : pokemonInfos;
 
-  pokemonsList.innerHTML = filtered
-    .map((p, i) => showPokemon(p, i))
-    .join('');
+  pokemonsList.innerHTML = filtered.map((p, i) => showPokemon(p, i)).join("");
   gettingCurrentPokemon();
 });

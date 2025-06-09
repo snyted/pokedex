@@ -234,6 +234,8 @@ function openFavorites() {
     loadPokemonItens(offset, limit);
     loadMoreButton.style.display = "block";
   }
+
+  gettingCurrentPokemon();
 }
 
 // Evitar pokémons duplicados

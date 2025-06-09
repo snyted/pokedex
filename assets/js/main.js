@@ -7,10 +7,13 @@ const menuBarTop = document.getElementById("bar1");
 const menuBarMiddle = document.getElementById("bar2");
 const menuBarBottom = document.getElementById("bar3");
 
+const searchBox = document.querySelector(".search-box");
+const searchInput = document.querySelector(".search-input");
+
 // Variáveis e States
 let pokemonsFavs = JSON.parse(localStorage.getItem("pokemonsFavs")) || [];
 const pokemonInfos = [];
-const limit = 5;
+const limit = 156;
 let offset = 0;
 
 async function loadPokemonItens(offset, limit) {
@@ -32,19 +35,22 @@ async function loadPokemonItens(offset, limit) {
 function showPokemon(pokemon, index) {
   const delay = index * 100; // atraso em ms (100ms por exemplo)
   return `
-    <li class="pokemon ${pokemon.type}" data-pokemon='${JSON.stringify(pokemon)}' data-aos="fade-up" data-aos-delay="${delay}">
+    <li class="pokemon ${pokemon.type}" data-pokemon='${JSON.stringify(
+    pokemon
+  )}' data-aos="fade-up" data-aos-delay="${delay}">
       <span class="number">#${pokemon.number}</span>
       <span class="name">${pokemon.name}</span>
       <div class="detail">
         <ol class="types">
-          ${pokemon.types.map(type => `<li class="type ${pokemon.type}">${type}</li>`).join("")}
+          ${pokemon.types
+            .map((type) => `<li class="type ${pokemon.type}">${type}</li>`)
+            .join("")}
         </ol>
         <img src="${pokemon.photo}" alt="${pokemon.name}"/>
       </div>
     </li>
   `;
 }
-
 
 // Função para pegar o pokemon clicado
 function gettingCurrentPokemon() {
@@ -72,6 +78,13 @@ function openModal(pokemon) {
     heartFill = "#fafafa"; // Cinza quando não favoritado
     heartClass = "";
   }
+
+  // Dados diretos, sem tradução
+  const description = pokemon.description || "N/A";
+  const height = pokemon.height || "N/A";
+  const weight = pokemon.weight || "N/A";
+  const abilities = pokemon.abilities ? pokemon.abilities.join(", ") : "N/A";
+  const baseExperience = pokemon.baseExperience || "N/A";
 
   modalContainer.innerHTML = `
     <div class="options">
@@ -104,21 +117,11 @@ function openModal(pokemon) {
     <img src="${pokemon.photo}" alt="${pokemon.name}">
     <div class="pokemon-infos">
       <ol>
-        <li><span class="title">Description</span> <div class="information">${
-          pokemon.description || "N/A"
-        }</div></li>
-        <li><span class="title">Height</span> <div class="information">${
-          pokemon.height || "N/A"
-        }</div></li>
-        <li><span class="title">Weight</span> <div class="information">${
-          pokemon.weight || "N/A"
-        }</div></li>
-        <li><span class="title">Abilities</span> <div class="information">${
-          pokemon.abilities ? pokemon.abilities.join(", ") : "N/A"
-        }</div></li>
-        <li><span class="title">Base Experience</span> <div class="information">${
-          pokemon.baseExperience || "N/A"
-        }</div></li>
+        <li><span class="title">Descrição</span> <div class="information">${description}</div></li>
+        <li><span class="title">Altura</span> <div class="information">${height}</div></li>
+        <li><span class="title">Peso</span> <div class="information">${weight}</div></li>
+        <li><span class="title">Habilidades</span> <div class="information">${abilities}</div></li>
+        <li><span class="title">Experiência Base</span> <div class="information">${baseExperience}</div></li>
       </ol>
     </div>
   `;
@@ -247,106 +250,39 @@ function avoidDuplicates() {
 }
 
 // Barra de pesquisa
-// const pokemonData = [
-//   { name: 'pikachu', type: 'electric' },
-//   { name: 'charizard', type: 'fire/flying' },
-//   { name: 'blastoise', type: 'water' },
-//   { name: 'venusaur', type: 'grass/poison' },
-//   { name: 'alakazam', type: 'psychic' },
-//   { name: 'machamp', type: 'fighting' },
-//   { name: 'gengar', type: 'ghost/poison' },
-//   { name: 'dragonite', type: 'dragon/flying' },
-//   { name: 'mewtwo', type: 'psychic' },
-//   { name: 'mew', type: 'psychic' },
-//   { name: 'lucario', type: 'fighting/steel' },
-//   { name: 'garchomp', type: 'dragon/ground' }
-// ];
+function toggleSearch() {
+  if (!searchBox.classList.contains("active")) {
+    openSearch();
+  }
+}
 
-// function toggleSearch() {
-//   const searchBox = document.querySelector('.search-box');
-//   if (!searchBox.classList.contains('active')) {
-//       openSearch();
-//   }
-// }
+function openSearch() {
+  searchBox.classList.add("active");
+  setTimeout(() => {
+    searchBox.querySelector("input").focus();
+  }, 200);
+}
 
-// function openSearch() {
-//   const searchBox = document.querySelector('.search-box');
-//   const searchInput = document.querySelector('.search-input');
-
-//   searchBox.classList.add('active');
-//   setTimeout(() => {
-//       searchInput.focus();
-//   }, 300);
-// }
-
-// function closeSearch() {
-//   setTimeout(() => {
-//       const searchBox = document.querySelector('.search-box');
-//       const searchResults = document.getElementById('searchResults');
-//       const searchInput = document.querySelector('.search-input');
-
-//       if (searchInput.value === '') {
-//           searchBox.classList.remove('active');
-//       }
-//       searchResults.classList.remove('show');
-//   }, 200);
-// }
-
-// function searchPokemon(query) {
-//   const searchResults = document.getElementById('searchResults');
-
-//   if (query.length === 0) {
-//       searchResults.classList.remove('show');
-//       return;
-//   }
-
-//   const filteredPokemon = pokemonData.filter(pokemon =>
-//       pokemon.name.toLowerCase().includes(query.toLowerCase())
-//   );
-
-//   if (filteredPokemon.length > 0) {
-//       searchResults.innerHTML = filteredPokemon.map(pokemon => `
-//           <div class="search-result-item" onclick="selectPokemon('${pokemon.name}')">
-//               <div class="pokemon-name">${pokemon.name}</div>
-//               <div class="pokemon-type">${pokemon.type}</div>
-//           </div>
-//       `).join('');
-
-//       searchResults.classList.add('show');
-//   } else {
-//       searchResults.innerHTML = `
-//           <div class="search-result-item">
-//               <div class="pokemon-name">Nenhum Pokémon encontrado</div>
-//               <div class="pokemon-type">Tente outra busca</div>
-//           </div>
-//       `;
-//       searchResults.classList.add('show');
-//   }
-// }
-
-// function selectPokemon(pokemonName) {
-//   const searchInput = document.querySelector('.search-input');
-//   const searchResults = document.getElementById('searchResults');
-
-//   searchInput.value = pokemonName;
-//   searchResults.classList.remove('show');
-
-//   console.log('Pokémon selecionado:', pokemonName);
-// }
-
-// document.addEventListener('click', function(event) {
-//   const searchContainer = document.querySelector('.search-container');
-//   if (!searchContainer.contains(event.target)) {
-//       const searchBox = document.querySelector('.search-box');
-//       const searchResults = document.getElementById('searchResults');
-//       const searchInput = document.querySelector('.search-input');
-
-//       if (searchInput.value === '') {
-//           searchBox.classList.remove('active');
-//       }
-//       searchResults.classList.remove('show');
-//   }
-// });
+function closeSearch() {
+  setTimeout(() => {
+    searchBox.classList.remove("active");
+    searchInput.value = "";
+  }, 200);
+}
 
 // Carregar os primeiros pokémons
 loadPokemonItens(offset, limit);
+
+// Busca interativa
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.toLowerCase().trim();
+  const filtered = q
+    ? pokemonInfos.filter(p => p.name.toLowerCase().includes(q))
+    : pokemonInfos;
+
+  pokemonsList.innerHTML = filtered
+    .map((p, i) => showPokemon(p, i))
+    .join('');
+
+  gettingCurrentPokemon();
+});
